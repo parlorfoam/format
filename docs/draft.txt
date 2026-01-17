@@ -10,7 +10,7 @@ Abstract
 Status of This Memo
 
    This is currently in the experimental stage and very much subject to change.
-   This first draft was created from the 20.07.2017 to the 22.07.2017 at the "Code Kombüse" Hackathon and 
+   The first draft was created from the 2017-07-20 to the 2017-07-22 at the "Code Kombüse" Hackathon and
    is my first formal definition, so don't hit me for it.
    The second draft was created on 2017-08-11.
    The third draft was created on 2026-01-17.
@@ -160,12 +160,14 @@ Example
 1.0.9 Images
 
     A Recipe envelope may contain a field `images` as a list of strings. 
-    The images have to be URLs or paths to the images on the local filesystem and should display the full recipe with all subrecipes. Local paths may be relative or absolute.
+    The images have to be URLs or paths to the images on the local filesystem and should display the full recipe with all subrecipes.
+    Local paths may be relative or absolute.
 
 1.0.10 Audio
 
     A Recipe envelope may contain a field `audio` as a string.
-    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the recipe. Local paths may be relative or absolute.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the recipe.
+    Local paths may be relative or absolute.
 
 1.0.11 Links
 
@@ -219,12 +221,14 @@ Example
 1.2.6 Images
 
     A Recipe object may contain a field `images` as a list of strings. 
-    The images have to be URLs or paths to the images on the local filesystem and should display just the subrecipe. Local paths may be relative or absolute.
+    The images have to be URLs or paths to the images on the local filesystem and should display just the subrecipe.
+    Local paths may be relative or absolute.
 
 1.2.7 Audio
 
     A Recipe object may contain a field `audio` as a string.
-    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the subrecipe. Local paths may be relative or absolute.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the subrecipe.
+    Local paths may be relative or absolute.
 
 1.2.8 Links
 
@@ -373,12 +377,14 @@ Example
 1.6.4 Images
 
     A Direction object may contain a field `images` as a list of strings. 
-    The images have to be URLs or paths to the images on the local filesystem and should display just the direction. Local paths may be relative or absolute.
+    The images have to be URLs or paths to the images on the local filesystem and should display just the direction.
+    Local paths may be relative or absolute.
 
 1.6.5 Audio
 
     A Direction object may contain a field `audio` as a string.
-    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal read of the `text` string. Local paths may be relative or absolute.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal read of the `text` string.
+    Local paths may be relative or absolute.
 
 1.6.6 Ingredients
 
