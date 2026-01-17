@@ -407,6 +407,7 @@ Changes:
 
     Third Draft 2026-01-17
     - A Recipe object may contain a new field `utensils` that contains a list of required or recommended cookware for the recipe.
+    - A Recipe envelope, Recipe object, and Direction may contain a new field `audio` for embedding an audio file containing verbal information about the recipe or direction.
     - The Ingredient and Utensil objects may contain a new field `substitutes` that contains a list of alternatives for the Ingredient or Utensil.
     - `images` in the Recipe envelope, Recipe object, and Direction object can now optionally include paths to image files on the local filesystem instead of only URLs. Local paths may be relative or absolute.
     - `language` in the recipe envelope now uses IETF BCP 47 language codes instead of ISO 639-1. This allows for specification of regional language variations (e.g. "en-US"), useful in cases where a component's name differs by region.
