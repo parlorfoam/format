@@ -246,7 +246,7 @@ Example
 
     The Ingredient objects of a RecipeJSON have to contain the following fields:
 
-    `unit`, `name`
+    `unit`, `name`, `type`
 
     it may also contain the following fields:
 
@@ -257,22 +257,27 @@ Example
     An Ingredient object has to contain a field `unit` as string.
     The unit should contain a string describing the unit. Further definition needed for better automation.
 
-1.3.1 Name
+1.3.2 Name
 
     An Ingredient object has to contain a field `result` as string.
     The name is used to identify the ingredient in the directions.
 
-1.3.2 Amount
+1.3.3 Type
+
+    An Ingredient object has to contain a field `type` as string.
+    The type may be either "required" or "recommended", depending on what the recipe needs.
+
+1.3.4 Amount
 
     An Ingredient object may contain a field `amount` as string.
     The amount is a number used in conjunction with unit to describe how much of the ingredient should be used.
 
-1.3.2 Attributes
+1.3.5 Attributes
 
     An Ingredient object may contain a field `attributes` as a list of strings.
     The Attributes should be used to describe the ingredient further.
 
-1.3.3 Substitutes
+1.3.6 Substitutes
 
     An Ingredient object may contain a field `substitutes` containing a list of Substitute objects.
     The Substitute object is defined in 1.5.0.
@@ -407,6 +412,7 @@ Changes:
 
     Third Draft 2026-01-17
     - A Recipe object may contain a new field `utensils` that contains a list of required or recommended cookware for the recipe.
+    - An Ingredient object may contain a new field `type` that contains a string noting whether the ingredient is "recommended" or "required".
     - A Recipe envelope, Recipe object, and Direction may contain a new field `audio` for embedding an audio file containing verbal information about the recipe or direction.
     - The Ingredient and Utensil objects may contain a new field `substitutes` that contains a list of alternatives for the Ingredient or Utensil.
     - `images` in the Recipe envelope, Recipe object, and Direction object can now optionally include paths to image files on the local filesystem instead of only URLs. Local paths may be relative or absolute.
