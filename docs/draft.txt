@@ -355,6 +355,7 @@ Changes:
     Project Gourmet Variant (rolling release)
     - Added unique identifiers for recipes. Possibly to be replaced with UUIDs in the future.
     - Replaced ingredient and utensil names with unique identifiers.
+    - Added `variant` field to the Recipe envelope to identify a Gourmet variant RecipeJSON.
     - Removed sample recipe until an English sample recipe can be created.
 
 ===============================================================================================
