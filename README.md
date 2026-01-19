@@ -1,2 +1,2 @@
-# RecipeJson
-The formal definition of the RecipeJSON format
+# RecipeJson for Gourmet
+RecipeJSON format for Project Gourmet.
