@@ -10,8 +10,10 @@ Abstract
 Status of This Memo
 
    This is currently in the experimental stage and very much subject to change.
-   This first draft was created from the 20.07.2017 to the 22.07.2017 at the "Code Kombüse" Hackathon and 
+   The first draft was created from the 2017-07-20 to the 2017-07-22 at the "Code Kombüse" Hackathon and
    is my first formal definition, so don't hit me for it.
+   The second draft was created on 2017-08-11.
+   The third draft was created on 2026-01-17.
 
 Example
 
@@ -61,22 +63,25 @@ Example
                 ],
                 "directions": [
                     {
+                        "type": "cooking",
                         "duration": "P1M",
                         "text": "Toastbrot rösten",
                         "ingredients": ["Toastbrot"],
-                        "result": "Toastbrot geröstet",
+                        "result": ["Toastbrot geröstet"],
                     },
                     {
+                        "type": "preparation",
                         "duration": "P1M",
                         "text": "Toastbrot mit Schmelzkäse und Schinken belegen",
                         "ingredients": ["Toastbrot geröstet", "Schmelzkäse", "Schinken"],
-                        "result": "Toast mit Schinken und Käse",
+                        "result": ["Toast mit Schinken und Käse"],
                     },
                     {
+                        "type": "cooking",
                         "duration": "P1M",
                         "text": "Toastbrot mit Käse Schmelzkäse und Schinken im Mikrowellenherd grillen",
                         "ingredients": ["Toast mit Käse und Schinken und Käse"],
-                        "result": "",
+                        "result": [""],
                     },
                 ]
             }
@@ -97,7 +102,7 @@ Example
 
     it may also contain the following fields:
 
-    `subtitle`, `source`, `author`, `images`, `links`, `tags`
+    `subtitle`, `source`, `author`, `images`, `audio`, `links`, `tags`
 
 1.0.1 Version
  
@@ -111,7 +116,7 @@ Example
 1.0.3 Language
  
     A Recipe envelope has to contain a field `language` as string. 
-    This is should be the language of the recipe, and contain any ISO 639-1 Code.
+    This is should be the language of the recipe, and contain any IETF BCP 47 Code.
 
 1.0.3 Creation Date
  
@@ -155,14 +160,21 @@ Example
 1.0.9 Images
 
     A Recipe envelope may contain a field `images` as a list of strings. 
-    The images have to be URLs and should display the full recipe with all subrecipes.
+    The images have to be URLs or paths to the images on the local filesystem and should display the full recipe with all subrecipes.
+    Local paths may be relative or absolute.
 
-1.0.10 Links
+1.0.10 Audio
+
+    A Recipe envelope may contain a field `audio` as a string.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the recipe.
+    Local paths may be relative or absolute.
+
+1.0.11 Links
 
     A Recipe envelope may contain a field `links` as a list of strings. 
-    The images have to be URLs and should be links to websites containing relevant infomation for this recipe.
+    The links should be to websites containing relevant infomation for this recipe.
 
-1.0.11 Tags
+1.0.12 Tags
 
     A Recipe envelope may contain a field `tags` as a list of strings. 
     The tags should describe the recipe and may be used for search.
@@ -177,7 +189,7 @@ Example
 
     it may also contain the following fields:
 
-    `title`, `subtitle`, `images`, `links`, `tags`
+    `utensils`, `title`, `subtitle`, `images`, `audio`, `links`, `tags`
 
     The title is not mandatory, but recipes containing multiple subrecipes should contain a title.
 
@@ -189,29 +201,41 @@ Example
 1.2.2 Directions
 
     A Recipe object has to contain a field `directions` containing a list of Direction objects.
-    The Direction object is defined in 1.4.0.
+    The Direction object is defined in 1.6.0.
 
-1.2.3 Title
+1.2.3 Utensils
+
+    A Utensils object may contain a field `utensils` containing a list of Utensil objects.
+    The Utensil object is defined in 1.4.0.
+
+1.2.4 Title
     
     A Recipe object may to contain a field `title` as string. 
     This is should just be the title of the subrecipe.
 
-1.2.4 Subtitle
+1.2.5 Subtitle
     
     A Recipe object may contain a field `subtitle` as string.
     The subtitle should describe the recipe in more detail than the title.
 
-1.2.5 Images
+1.2.6 Images
 
     A Recipe object may contain a field `images` as a list of strings. 
-    The images have to be URLs and should display just the subrecipe.
+    The images have to be URLs or paths to the images on the local filesystem and should display just the subrecipe.
+    Local paths may be relative or absolute.
 
-1.2.6 Links
+1.2.7 Audio
+
+    A Recipe object may contain a field `audio` as a string.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal description of the subrecipe.
+    Local paths may be relative or absolute.
+
+1.2.8 Links
 
     A Recipe object may contain a field `links` as a list of strings. 
-    The images have to be URLs and should be links to websites containing relevant infomation for this subrecipe.
+    The links should be to websites containing relevant infomation for this subrecipe.
 
-1.2.7 Tags
+1.2.9 Tags
 
     A Recipe object may contain a field `tags` as a list of strings. 
     The tags should describe the recipe and may be used for search.
@@ -222,68 +246,178 @@ Example
 
     The Ingredient objects of a RecipeJSON have to contain the following fields:
 
-    `unit`, `name`
+    `unit`, `name`, `type`
 
     it may also contain the following fields:
 
-    `amount`, `attributes`
+    `amount`, `attributes`, `substitutes`
 
 1.3.1 Unit
 
-    The Ingredient object has to contain a field `unit` as string.
+    An Ingredient object has to contain a field `unit` as string.
     The unit should contain a string describing the unit. Further definition needed for better automation.
 
-1.3.1 Name
+1.3.2 Name
 
-    The Ingredient object has to contain a field `result` as string.
+    An Ingredient object has to contain a field `result` as string.
     The name is used to identify the ingredient in the directions.
 
-1.3.2 Amount
+1.3.3 Type
 
-    The Ingredient object may contain a field `amount` as string.
+    An Ingredient object has to contain a field `type` as string.
+    The type may be either "required" or "recommended", depending on what the recipe needs.
+
+1.3.4 Amount
+
+    An Ingredient object may contain a field `amount` as string.
     The amount is a number used in conjunction with unit to describe how much of the ingredient should be used.
 
-1.3.2 Attributes
+1.3.5 Attributes
 
-    The Ingredient object may contain a field `attributes` as a list of strings.
+    An Ingredient object may contain a field `attributes` as a list of strings.
     The Attributes should be used to describe the ingredient further.
+
+1.3.6 Substitutes
+
+    An Ingredient object may contain a field `substitutes` containing a list of Substitute objects.
+    The Substitute object is defined in 1.5.0.
 
 ===============================================================================================
 
-1.4.0 Direction object definition
+1.4.0 Utensil object definition
 
-    The Direction objects of a RecipeJSON have to contain the following fields:
+    The Utensil objects of a RecipeJSON have to contain the following fields:
 
-    `text`
+    `name`, `type`
 
     it may also contain the following fields:
 
-    `duration`, `images`, `ingredients`, `result`
+    `amount`, `substitutes`
 
-1.4.1 Text
+1.4.1 Name
 
-    A Direction object may contain a field `text` as string.
+    A Utensil object has to contain a field `name` as string.
+    The name is used to identify the utensil in the directions.
+
+1.4.2 Type
+
+    A Utensil object has to contain a field `type` as string.
+    The type may be either "required" or "recommended", depending on what the recipe needs.
+
+1.4.3 Amount
+
+    A Utensil object may contain a field `amount` as string.
+    The amount is a number to describe how many of the utensil should be used.
+
+1.4.4 Substitutes
+
+    A Utensil object may contain a field `substitutes` containing a list of Substitute objects.
+    The Substitute object is defined in 1.5.0.
+
+===============================================================================================
+
+1.5.0 Substitute object definition
+
+    The Substitute objects of a RecipeJSON have to contain the following fields:
+
+    `name`, `type`
+
+    it may also contain the following fields:
+
+    `unit`, `amount`, `attributes`
+
+1.5.1 Name
+
+    A Substitute object has to contain a field `name` as string.
+    The name is used to identify the ingredient or utensil in the directions.
+
+1.5.2 Type
+
+    A Substitute object has to contain a field `type` as string.
+    The type can be either "required" or "recommended", depending on what the recipe needs.
+
+1.5.3 Unit
+
+    A Substitute object may contain a field `unit` as string.
+    The unit (which can only be used with Ingredient substitutes) should contain a string describing the unit. Further definition needed for better automation.
+
+1.5.4 Amount
+
+    A Substitute object may contain a field `amount` as string.
+    The amount (which can only be used with Utensil substitutes) is a number to describe the quantity of the utensil that should be used.
+
+1.5.5 Attributes
+
+    A Substitute object may contain a field `attributes` as a list of strings.
+    The Attributes (which can only be used with Ingredient substitutes) should be used to describe the ingredient further.
+
+===============================================================================================
+
+1.6.0 Direction object definition
+
+    The Direction objects of a RecipeJSON have to contain the following fields:
+
+    `type`, `text`
+
+    it may also contain the following fields:
+
+    `duration`, `images`, `audio`, `ingredients`, `result`
+
+1.6.1 Type
+
+    A Direction object has to contain a field `type` as string.
+    The type can be either `preparation` marking the direction step as a preparation step
+    or `cooking` marking it a step cooking something.
+
+1.6.2 Text
+
+    A Direction object has to contain a field `text` as string.
     The text should discribe the actions that have to be taken in this direction.
 
-1.4.2 Duration
+1.6.3 Duration
 
     A Direction object may contain a field `duration` as string.
     The duration should be a ISO 8601 duration string.
 
-1.4.3 Images
+1.6.4 Images
 
     A Direction object may contain a field `images` as a list of strings. 
-    The images have to be URLs and should display just the direction.
+    The images have to be URLs or paths to the images on the local filesystem and should display just the direction.
+    Local paths may be relative or absolute.
 
-1.4.4 Ingredients
+1.6.5 Audio
+
+    A Direction object may contain a field `audio` as a string.
+    The audio has to be a URL or a path to the audio on the local filesystem and should be a verbal read of the `text` string.
+    Local paths may be relative or absolute.
+
+1.6.6 Ingredients
 
     A Direction object may contain a field `ingredients` as a list of strings.
     The strings should reference either on of the ingredients or a result from a previous direction step.
 
-1.4.5 Result
+1.6.7 Result
 
-    A Direction object may contain a field `result` as string.
-    The result may be used in the ingredients for a direction, or can be omitted.
+    A Direction object may contain a field `result` as a list of strings.
+    The results may be used in the ingredients for directions, or can be omitted.
+
+===============================================================================================
+
+Changes:
+
+    Second Draft 2017-08-11
+
+    - `result` in the Direction object is not a simple string anymore but a list of strings instead.
+    - A Direction object must contain a new field `type` that can either have the value `preparation` or the value `cooking` marking it either a manual preparation step or a cooking step.
+
+    Third Draft 2026-01-17
+    - A Recipe object may contain a new field `utensils` that contains a list of required or recommended cookware for the recipe.
+    - An Ingredient object has to contain a new field `type` that contains a string noting whether the ingredient is "recommended" or "required".
+    - A Recipe envelope, Recipe object, and Direction may contain a new field `audio` for embedding an audio file containing verbal information about the recipe or direction.
+    - The Ingredient and Utensil objects may contain a new field `substitutes` that contains a list of alternatives for the Ingredient or Utensil.
+    - `images` in the Recipe envelope, Recipe object, and Direction object can now optionally include paths to image files on the local filesystem instead of only URLs. Local paths may be relative or absolute.
+    - `language` in the recipe envelope now uses IETF BCP 47 language codes instead of ISO 639-1. This allows for specification of regional language variations (e.g. "en-US"), useful in cases where a component's name differs by region.
+    - Some minor grammar corrections have been applied throughout.
 
 ===============================================================================================
 
@@ -293,3 +427,8 @@ Authors' Addresses
    info@leonkunert.de
 
    Felix Böösch
+
+   Carlos Freund
+   carlosfreund@gmail.com
+
+   Tracy Woods
